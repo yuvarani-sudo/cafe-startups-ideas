@@ -103,10 +103,10 @@
       const templateParams = {
         from_name: 'WebsiteVisitor',
         message: msg,
-        to_email: 'yuvacybercafe73@gmail.com'
+        to_email: 'your-email@gmail.com'
       };
 
-      emailjs.send('service_yuva_boss_11', 'template_dqeg99e', templateParams)
+      emailjs.send('s_id', 'razorpay_temp_id', templateParams)
         .then(function () {
           status.textContent = 'Message sent successfully. Thank you!';
           status.className = '';
