@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yuva Cyber Cafe - Send Message</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #2980b9, #6dd5fa);
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #222;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+    .card {
+      width: min(100%, 430px);
+      background-color: #fff;
+      border-radius: 14px;
+      box-shadow: 0 14px 48px rgba(0,0,0,0.18);
+      padding: 28px 24px 22px;
+    }
+    .card h1 {
+      margin: 0 0 12px;
+      font-size: 1.6rem;
+      text-align: center;
+      color: #1a3f6a;
+    }
+    .card p { margin: 0 0 14px; font-size: 0.95rem; color: #4b5a6d; }
+    .field { width: 100%; margin-bottom: 12px; }
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid #c4cbd7;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .2s ease;
+      resize: vertical;
+      min-height: 160px;
+    }
+    .field input:focus,
+    .field textarea:focus { border-color: #2f86d6; }
+    .button {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 15px;
+      background: #2e8af0;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .button:hover { background: #1d73d3; }
+    #status {
+      margin-top: 10px;
+      text-align: center;
+      min-height: 20px;
+      font-size: 0.95rem;
+      color: #2c6649;
+    }
+    #status.error { color: #c22d3c; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>☕🎵 Welcome to Yuva Cyber Cafe 🌟</h1>
+    <p>Share your thoughts with us! Type your message below and we will respond quickly at <strong>Yuva Cybercafe***</strong> ☕🎶✨.</p>
+    <form id="contactForm">
+      <div class="field">
+        <textarea
+          id="message"
+          name="message"
+          rows="8"
+          maxlength="2000"
+          placeholder="Write your message here (up to 2000 characters)..."
+          required
+          autocomplete="off"
+          style="resize: vertical;"
+        ></textarea>
+      </div>
+      <button class="button" type="submit">Send Message</button>
+    </form>
+    <div id="status"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    emailjs.init('IFGhin6l79JMvXn9I'); // Replace with EmailJS public key
+
+    const status = document.getElementById('status');
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = document.getElementById('message').value.trim();
+      if (!msg) { status.textContent = 'Please write a message first.'; status.className = 'error'; return; }
+
+      const templateParams = {
+        from_name: 'WebsiteVisitor',
+        message: msg,
+        to_email: 'yuvacybercafe73@gmail.com'
+      };
+
+      emailjs.send('service_yuva_boss_11', 'template_dqeg99e', templateParams)
+        .then(function () {
+          status.textContent = 'Message sent successfully. Thank you!';
+          status.className = '';
+          document.getElementById('message').value = '';
+        }, function (err) {
+          status.textContent = 'Send failed. Check console and EmailJS settings.';
+          status.className = 'error';
+          console.error('EmailJS error:', err);
+        });
+    });
+  </script>
+
+</body>
+</html>
